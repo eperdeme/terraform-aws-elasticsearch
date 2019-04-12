@@ -115,7 +115,13 @@ resource "aws_elasticsearch_domain" "default" {
     log_type                 = "ES_APPLICATION_LOGS"
     cloudwatch_log_group_arn = "${var.log_publishing_application_cloudwatch_log_group_arn}"
   }
-
+  
+  cognito_options {
+    enabled          = "${var.cognito_options_enabled}"
+    user_pool_id     = "${var.cognito_options_user_pool_id}"
+    identity_pool_id = "${var.cognito_options_identity_pool_id}"
+    role_arn         = "${var.cognito_options_role_arn}"
+  }
   tags = "${module.label.tags}"
 
   depends_on = ["aws_iam_service_linked_role.default"]
